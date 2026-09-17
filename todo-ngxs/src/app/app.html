@@ -1,0 +1,184 @@
+<div class="todo-page">
+
+  <!-- Header -->
+  <header class="header">
+    <div>
+      <h1>Todo App</h1>
+      <p>Manage your tasks</p>
+    </div>
+
+    <button
+      class="add-button"
+      (click)="isCreateModalOpen = true"
+    >
+      <span>+</span>
+      Add Todo
+    </button>
+  </header>
+
+
+  <!-- Summary -->
+  <section class="summary">
+
+    <div class="summary-card">
+      <div class="summary-icon total-icon">☷</div>
+
+      <div>
+        <strong>{{ totalTodos() }}</strong>
+        <span>Total Tasks</span>
+      </div>
+    </div>
+
+
+    <div class="summary-card">
+      <div class="summary-icon completed-icon">✓</div>
+
+      <div>
+        <strong>{{ completedTodos() }}</strong>
+        <span>Completed</span>
+      </div>
+    </div>
+
+
+    <div class="summary-card">
+      <div class="summary-icon active-icon">○</div>
+
+      <div>
+        <strong>{{ activeTodos() }}</strong>
+        <span>Active</span>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- Todo List -->
+  <section class="todo-list">
+
+    @for (todo of todos(); track todo.id) {
+
+      <article
+        class="todo-card"
+        [class.completed]="todo.isCompleted"
+      >
+
+        <div
+          class="checkbox"
+          [class.checked]="todo.isCompleted"
+        >
+          @if (todo.isCompleted) {
+            ✓
+          }
+        </div>
+
+
+        <div class="todo-content">
+
+          <div class="todo-header">
+
+            <h2>{{ todo.title }}</h2>
+
+            @if (todo.isCompleted) {
+
+              <span class="status completed-status">
+                ✓ Completed
+              </span>
+
+            } @else {
+
+              <span class="status active-status">
+                Active
+              </span>
+
+            }
+
+          </div>
+
+
+          <p>
+            {{ todo.description }}
+          </p>
+
+
+          <span class="created-date">
+            {{ todo.createdAt }}
+          </span>
+
+
+          <div class="todo-actions">
+
+            @if (!todo.isCompleted) {
+
+              <button
+                (click)="completeTodo(todo.id)"
+              >
+                Complete
+              </button>
+
+            }
+
+            <button
+              (click)="deleteTodo(todo.id)"
+            >
+              Delete
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    }
+
+  </section>
+
+
+  <!-- Create Todo Modal -->
+  @if (isCreateModalOpen) {
+
+    <div class="modal-overlay">
+
+      <div class="modal">
+
+        <h2>Create Todo</h2>
+
+
+        <input
+          type="text"
+          placeholder="e.g. Finish Angular tutorial"
+          (input)="title = $any($event.target).value"
+        />
+
+
+        <textarea
+          placeholder="Add a short description"
+          (input)="description = $any($event.target).value"
+        ></textarea>
+
+
+        <div class="modal-actions">
+
+          <button
+            (click)="cancelCreate()"
+          >
+            Cancel
+          </button>
+
+
+          <button
+            class="create-button"
+            (click)="createTodo()"
+          >
+            Create Todo
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  }
+
+</div>
