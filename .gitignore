@@ -1,0 +1,25 @@
+# Angular
+
+todo-ngxs/node_modules/
+todo-ngxs/dist/
+todo-ngxs/.angular/
+todo-ngxs/coverage/
+
+# .NET
+
+TodoApp/**/bin/
+TodoApp/**/obj/
+TodoApp/**/publish/
+
+# IDE
+
+.vscode/
+.idea/
+.DS_Store
+
+# Environment & Secrets
+
+.env
+.env.*
+!.env.example
+appsettings.Development.json
